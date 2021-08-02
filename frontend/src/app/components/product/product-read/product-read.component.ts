@@ -15,8 +15,19 @@ export class ProductReadComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.readProducts();
+  }
+
+  readProducts(): void {
     this.productService.read().subscribe(products => {
       this.products = products;
+    });
+  }
+
+  deleteProduct(id: string): void {
+    this.productService.delete(id).subscribe(() => {
+      this.productService.showMessage('Produto removido com sucesso!');
+      this.readProducts();
     })
   }
 
